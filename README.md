@@ -1,0 +1,1 @@
+Bare bottoms Vue JS project with typescript and SASS integration

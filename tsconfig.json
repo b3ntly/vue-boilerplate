@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "outDir": "build",
+      "moduleResolution": "node",
+      "module": "es2015",
+      "declaration": true,
+      "importHelpers": true,
+      "listFiles": false,
+      "traceResolution": false,
+      "experimentalDecorators": true,
+      "pretty": true,
+      "lib": ["es7", "dom"],
+      "types" : [
+        "node"
+      ],
+      "baseUrl": ".",
+      "alwaysStrict": true,
+      "sourceMap": true,
+      "removeComments": true,
+      "noImplicitReturns": true,
+      "noImplicitAny": false,
+      "stripInternal": true,
+      "noFallthroughCasesInSwitch": true,
+      "noEmitOnError": true,
+      "allowSyntheticDefaultImports": true,
+      "strictNullChecks": false,
+      "emitDecoratorMetadata": true
+    }
+  }
