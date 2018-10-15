@@ -1,1 +1,91 @@
-p hello world 
+#container
+    #filterbar 
+        md-menu(md-align-trigger=true, :md-offset-y='1', :md-offset-x='-15')
+            md-button(md-menu-trigger).md-raised.accent My Introductions
+            md-menu-content
+                md-menu-item My Introductions 
+                md-menu-item My Accounts
+                md-menu-item All Introductions
+ 
+        md-menu(md-align-trigger=true, :md-offset-y='1')
+            md-button(md-menu-trigger).md-raised Stage
+            md-menu-content
+                md-menu-item Approval
+                md-menu-item Introduction
+                md-menu-item Screen 
+                md-menu-item Meeting
+                md-menu-item Offer
+                md-menu-item Hire 
+                md-menu-item Lost
+
+        md-menu(md-align-trigger=true, :md-offset-y='1')
+            md-button(md-menu-trigger).md-raised ADVANCED
+            md-menu-content
+                md-menu-item My Item 1
+                md-menu-item My Item 2
+                md-menu-item My Item 3  
+
+        span(@click="clearFilter") Clear Filters  
+
+        div
+            .spinner(v-if="network === 0")                     
+        
+        #search 
+            input(placeholder="search", v-model="queryFilter.search")
+
+    #display-toggle(@click="changeDisplay") {{ display === 0 ? 'Table' : 'Split'}} 
+
+    transition(name="fade")
+        .subcontainer(v-if="display === 1")
+            #tableview 
+                .header-wrapper 
+                    .grid Owner
+                    .grid BD Owner 
+                    .grid Lion 
+                    .grid Job 
+                    .grid Interview (Local)
+                    .grid Stage 
+                    .grid Changed  
+                    .grid Lost       
+
+                .body-wrapper 
+                    .row-wrapper(v-for="i in introductions")  
+                        .row 
+                            .grid {{ i.Owner_short__c }}
+                            .grid {{ i.BD_Owner_Full_Name__c  }}      
+                            .grid 
+                                a(href="") &nbsp [LI] 
+                                a(href="") [I]   
+                                a(href="") {{ i.Lion_Full_Name__c }}    
+                            .grid 
+                                a(:href="`https://thelions.force.com/${i.Job__c}`", target="_blank") {{ i.Job_Title__c }}
+                                span &nbsp
+                                a(:href="`https://thelions.force.com/${i.Account_Id__c}`", target="_blank") ({{ i.Account_Name__c }})
+                            
+                            .grid {{ formatDate(i.Interview_Scheduled_for__c) }}
+                            .grid 
+                                select(@change="update('Stage__c', i.Stage__c)", v-model="i.Stage__c") 
+                                    option Approval
+                                    option Introduction
+                                    option Screen 
+                                    option Meeting
+                                    option Offer
+                                    option Hire 
+                                    option Lost
+
+                            .grid {{ i.Stage_changed__c }}
+                            .grid 
+                                input(type="checkbox", v-model="i.Lost_Communicated__c", @change="update('Lost_Communicated__c', i.Lost_Communicated__c)")
+    
+    transition(name="fade")
+        .subcontainer(v-if="display === 0")
+            #splitview 
+                #splitview-list  
+                    .card(v-for="i in introductions", @click="selectedIntroduction = i")  
+                        p {{ i.Id }}
+                        p {{ i.Lion_Full_Name__c }}
+                          
+                #splitview-detail {{ selectedIntroduction }} 
+    
+    #footerbar 
+        h3 {{ introductionsCount }} Introductions found  

@@ -1,0 +1,242 @@
+@import './node_modules/vue-material/dist/vue-material.min.css';
+
+// base colors 
+$facebook-grey: #edf0f6;
+$lion-gold: #be9856;
+$lion-purple: #807be3;
+$secondary-lion-purple: #6460b3;
+
+// column widths 
+$col1: 100px;
+$col2: 150px;
+$col3: 200px;
+$col4: 400px;
+$col5: 250px;
+$col6: 150px;
+$col7: 100px;
+$col8: 50px;
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: white; 
+    overflow-y: hidden;
+
+    .md-menu-content {
+        background-color: white;
+        width: 170px;
+
+        .md-list-item {
+            &:hover {
+                cursor: pointer;
+                background-color: $facebook-grey;
+            }
+        }
+    }
+
+    a {
+        color: $lion-purple;
+    }
+
+    .accent {
+        background-color: #807be3;
+        color: rgba(255, 255, 255, .87);
+    }
+}
+
+@mixin table-list($columns...) {
+    .header-wrapper {
+        background-color: white;
+        display: grid;
+        grid-template-columns: $columns;
+
+        .grid {
+            display: block;
+            margin: 0; 
+            padding: 5px;
+        }
+    }
+
+    .body-wrapper {
+        overflow-y: scroll;
+        height: 100%;
+
+        .row-wrapper:nth-child(odd){
+            background-color: #bdbdbd17;
+        }
+
+        .row-wrapper {
+            height: 26px;
+            background-color: white;
+            border-style: solid;
+            border-width: 1px;
+            border-color: rgba(137, 137, 137, 0.16);
+            font-size: 14px;
+            overflow: hidden;
+            font-weight: 500;
+
+            &:hover {
+                pointer: cursor;
+            }
+
+            .row {
+                display: grid;
+                grid-template-columns: $columns;
+            
+                .grid {
+                    padding: 5px;
+                }
+            }
+        }
+    }
+}
+
+#container {
+    height: 100%;
+
+    #display-toggle {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 1px solid black;
+
+        &:hover { cursor: pointer }
+    }
+
+    #filterbar {
+        width: 100%;
+        height: 50px;
+        background-color: white;
+        border-bottom: 0.5px solid rgba(128, 128, 128, 0.32);
+        display: grid; 
+        grid-template-columns: 170px 100px 120px 200px 200px auto;
+
+        .md-button {
+            font-size: 10px;
+            min-width: 66px;
+            min-height: 28px;
+            margin: 6px 4px;
+            padding: 0 24px;
+            border-radius: 20px
+        }
+
+        .md-menu {
+            display: flex;
+            float: left;
+        }
+
+        span {
+            padding-left: 20px;
+            margin-top: 16px;
+            color: $lion-purple;
+
+            &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+
+        .spinner {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #34db4a; /* Blue */
+            border-radius: 50%;
+            margin-top: 9px;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;  
+            margin-left: 35px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #search {
+            flex-grow: 100;
+      
+            input {
+              min-height: 48px;
+              padding: 17px 17px 17px 55px;
+              border:1px solid #f5f5f5;
+              font-size:13px;color:gray;
+              background: url('http://i47.tinypic.com/r02vbq.png') no-repeat left center;
+              outline:0;
+              width: 100%;
+            }
+          }
+    }
+
+    #footerbar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        background-color: white;
+        border-top: 0.5px solid rgba(128, 128, 128, 0.32);
+
+        h3 {
+            padding-left: 20px;
+        }
+    }
+
+    .subcontainer {
+        background-color: white;
+
+        #splitview {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 50px;
+            
+            #splitview-list {
+                height: 100%;
+                float: left; 
+                width: 400px;
+                background-color: $facebook-grey;
+                overflow-y: scroll;
+
+                .card {
+                    width: 98%; 
+                    padding: 5px;
+                    margin: 2px auto; 
+                    background-color: white;
+                    
+                    &:hover {
+                        background-color: $facebook-grey;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            #splitview-detail {
+                border-left: 1px solid rgba(128, 128, 128, 0.32);
+                height: 100%;
+                background-color: white;
+                margin-left: 400px;
+            }
+        }
+
+        #tableview {
+            position: absolute;
+            top: 52.5px;
+            left: 0;
+            right: 0;
+            bottom: 50px;
+            padding-bottom: 30px;
+
+            @include table-list($col1 $col2 $col3 $col4 $col5 $col6 $col7 $col8);
+        }
+    }
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
